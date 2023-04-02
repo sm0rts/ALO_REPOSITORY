@@ -1,0 +1,25 @@
+This file contains learning takeaways of how to make good ROS code
+
+A node is a unit that does something 
+publisher sends information out and a listener recieves it 
+The information is sent along channels that have a declared DATATYPE and NAME
+Src (source dircetory) contains all the files that make up the project.
+A project is therefore declared in the source file (my_robot_controler)
+it has project(my_robot_controller),initiation , resource,test directories and package.xml setup.cfg, setup.py files
+project(my_robot_controller) contains all the nodes.py files as well as __pyache and __init that we dont touch 
+resource and test shouldnt be touched at this point either
+package.xml  has dependables in it, their list needs to be appended each time a new node is created. 
+dont touch setup.cfg
+setup.py contrains some version info and most importantly a list of entry points that need to be appended when a new node is added. 
+
+Class <Name>(Node): 				creates a subclass of the node class
+	def__init__(self):   			is used to initialise an object of the class
+		super().__init__("<Name>") 	gives a name to the object of the class
+		...
+		
+def main(args = None):     		main function that runs when the .py file is called 
+	rclpy.init(args = args)     	initiates the function 
+	node = <Node Name>()    	initiates the node defined outside the main function
+	rclpy.spin(node) 		makes the node run forever in the terminal 
+	rclpy.shutdown()		kills the node
+

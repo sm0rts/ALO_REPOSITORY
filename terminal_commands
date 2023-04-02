@@ -1,0 +1,69 @@
+Linux commands list
+
+add flags using -<sign> after command for example ls -l creates a lists files and directories in list format
+
+| is used to pipeline instructions ino each other, for example: ls-l | sort sorts the list
+
+man <command> shows the manual for that command 
+---------------------------------------------
+find 
+mkdir
+locate
+whereis
+open
+rm  -rf					remove   (-rf<name> removes directories and everyhting in them)
+cd						change directory
+rmdir 						remove directory
+ls 						lists everything in the current directory
+printf "word" 					spits out words 
+cat 						reads out a file
+Less 						does the same thing as cat but starts from top
+sort 						sorts inputs 
+head <filename> 				list the top 10 lines 
+tail <filename> 				list the bot 10 lines 
+history 					gives all comands ran in the past
+!<number in history> 				runs the previous command of the number specified
+sudo 				gives administrative priviliges to the command you are about to run
+apt update 					updates all the pending updates
+!! 						runs the last command
+killx - 					allows you to click on a program to kill 
+htop 			effectively task manager that lets you kill running processes from a terminal
+ctrl c 						kills the running  in terminal command
+ping <website name> 				lets you check the connection status to the website
+wget <URL with a download> 			downloads the file form the url location
+sudo apt update && sudo aot upgrade
+nano <filename>.txt 				creates a text file and allows you to edit it 
+getit .bashrc 			opens the bash file so you can add sources to the opening of a terminal
+touch 						<filename> creates a file  
+chmod +x 					<filename> makes the file executable
+./<filename> 					runs the file
+colcon build 					builds the nodes in (only use in workspace folder) 
+source ~/.bashrc 				links the terminal to bashrc file
+ssh-keygen
+
+
+
+ Git commands .....................................
+ git status 					shows status of changed files
+ git add <filename> 				adds the file to source control
+ git config --global user.name 			gives the name of the machine you are working from 
+ git config --global user.email 		gives the email of the machine you are working from 
+ git commit -m "comment" 			commits the changes with a comment
+ git add . 					adds all of the files to the commit list 
+ git log --oneline 				shows the previous versions and edits 
+ git revert <hash of the previous log> 		reverses the sys to a previous state
+ git push origin main 				uploads commit to the main 
+ git pull origin main 				dwonloads the updated main 
+ git clone <repository URL>			clones the repository
+ git remote add origin <repo URL>		links computer repository to a remote one
+ git push origin master
+ 
+ ROS commands
+ rqt_graph					shows the graph of nodes
+ ros2 run <filename> test_node 			launches the execution of the test node
+ ros2 node list - 				list all the nodes that are active
+ ros2 node info </node name>  			gives information about the node
+ ros2 topic list 				lists topics 
+ ros2 topic info <topic name> 			shows information type, publishers and listners 
+ ros2 interface show <datatype> 		reveals the data transmitterd over the topic
+ colcon build --symlink-install			installs the new node in the project
