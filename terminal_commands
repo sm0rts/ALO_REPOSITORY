@@ -6,7 +6,8 @@ add flags using -<sign> after command for example ls -l creates a lists files an
 
 man <command> shows the manual for that command 
 ---------------------------------------------
-find 
+find  ros2 run my_robot_controller 
+
 mkdir
 locate
 whereis
@@ -59,7 +60,8 @@ ssh-keygen
  git push origin master
  
  ROS commands
- rqt_graph					shows the graph of nodes
+ ris 2 pkg create <pkg name> --build-type ament_python      creates a python package
+ rqt_graph					shows the graph of nodes					
  ros2 run <filename> test_node 			launches the execution of the test node
  ros2 node list - 				list all the nodes that are active
  ros2 node info </node name>  			gives information about the node
