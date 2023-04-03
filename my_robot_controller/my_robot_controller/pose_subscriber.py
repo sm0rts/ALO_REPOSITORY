@@ -12,7 +12,8 @@ class PoseSubscriberNode(Node):
             Pose, "/turtle1/pose", self.pose_callback, 10)
 
     def pose_callback(self, msg: Pose):
-        self.get_logger().info(str("posX= ")+str(+round(msg.x, 3))+str("    posY= ")+str(+round(msg.y, 3)))
+        self.get_logger().info(str("posX= ")+str(
+            +round(msg.x, 3))+str("    angular velocity = ")+str(+round(msg.theta+3.15, 2)))
 
 def main(args=None):
     rclpy.init(args=args)
