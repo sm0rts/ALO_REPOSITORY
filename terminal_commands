@@ -28,7 +28,7 @@ sudo 				gives administrative priviliges to the command you are about to run
 apt update 					updates all the pending updates
 !! 						runs the last command
 killx - 					allows you to click on a program to kill 
-htop 			effectively task manager that lets you kill running processes from a terminal
+htop 		effectively task manager that lets you kill running processes from a terminal
 ctrl c 						kills the running  in terminal command
 ping <website name> 				lets you check the connection status to the website
 wget <URL with a download> 			downloads the file form the url location
@@ -41,6 +41,7 @@ chmod +x 					<filename> makes the file executable
 colcon build 					builds the nodes in (only use in workspace folder) 
 source ~/.bashrc 				links the terminal to bashrc file
 ssh-keygen
+ssh pi@172.20.10.5 				connect to pi through phone hotspot
 
 
 
@@ -59,6 +60,13 @@ ssh-keygen
  git remote add origin <repo URL>		links computer repository to a remote one
  git push origin master
  
+ teminator commands ----------------------------------
+  ctrl+shift+e					split vertically
+  ctrl+shift+o					split horizontally
+  ctrl+shift+w					close terminal
+  ctrl+shift+x					full screen mode enter/exit
+  alt + l 					allows to select premade layouts
+  
  ROS commands
  ris 2 pkg create <pkg name> --build-type ament_python      creates a python package
  rqt_graph					shows the graph of nodes					

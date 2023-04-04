@@ -27,4 +27,17 @@ def main(args = None):     		main function that runs when the .py file is called
 04/04/2023
 Plan : 
 Finish tutorial series 
+Find a way to have a publisher node on pi and a subscriber node on desktop 
 
+Choosing a network structure:
+1) fast reliable connection
+2) internet connection to download packages
+3) some degree of control to set up static IPs 
+
+Access point network (AP_Net)
+- 1 device broadcasts its own network , other devices connect (need another wifi dongle?)
+- takes effort to configure
+- stuck wit a base section
+
+A dedicated network (travel router)
+- connect all devices to a dedicated network 
