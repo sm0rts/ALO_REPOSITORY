@@ -67,5 +67,9 @@ ssh-keygen
  ros2 node info </node name>  			gives information about the node
  ros2 topic list 				lists topics 
  ros2 topic info <topic name> 			shows information type, publishers and listners 
- ros2 interface show <datatype> 		reveals the data transmitterd over the topic
+ ros2 service list				lists available servies
+ ros2 service type <service name>		shows service type
+ ros2 interface show <output of service type> 	shows the command inputs for the service
+ ros2 interface show <interface location>	reveals the data transmitterd over the topic
+ ros2 service call <interface output> "{'a': x, 'b': y, 'c': z ...}"
  colcon build --symlink-install			installs the new node in the project

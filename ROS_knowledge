@@ -23,3 +23,8 @@ def main(args = None):     		main function that runs when the .py file is called
 	rclpy.spin(node) 		makes the node run forever in the terminal 
 	rclpy.shutdown()		kills the node
 
+
+04/04/2023
+Plan : 
+Finish tutorial series 
+
