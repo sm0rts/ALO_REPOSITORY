@@ -28,16 +28,24 @@ def main(args = None):     		main function that runs when the .py file is called
 Plan : 
 Finish tutorial series 
 Find a way to have a publisher node on pi and a subscriber node on desktop 
-
 Choosing a network structure:
 1) fast reliable connection
 2) internet connection to download packages
 3) some degree of control to set up static IPs 
-
 Access point network (AP_Net)
 - 1 device broadcasts its own network , other devices connect (need another wifi dongle?)
 - takes effort to configure
 - stuck wit a base section
-
 A dedicated network (travel router)
 - connect all devices to a dedicated network 
+
+For now, the phone will be used as a source of internet through cable and the raspberry pi will be tethered to desktop via an ssh bridge
+
+Acomplishments:
+reinstalled an older version of ubuntu on Pi since ROS2 does not support the newest one
+Learned how to use Terminator
+Downloaded ros2 simulation packages for lidar but had no time to test them
+Connected raspberry pi to desktop 
+finished the ROS2 humble tutorial series, understood nodes, topics, publishers, subscribers and services as well as created example code in my_robot project that shows how to interconnect them. 
+Additional commands to discover topics and their contents have been appended to the terminal commands
+ 
