@@ -42,8 +42,11 @@ colcon build 					builds the nodes in (only use in workspace folder)
 source ~/.bashrc 				links the terminal to bashrc file
 ssh-keygen
 ssh pi@172.20.10.5 				connect to pi through phone hotspot
-
-
+ps -aux | grep "process"
+echo $PATH
+grep "keyword" file 
+grep -r "word" *
+cowsay penis | grep hello && echo "Found!" || echo "not Found"
 
  Git commands .....................................
  git status 					shows status of changed files
