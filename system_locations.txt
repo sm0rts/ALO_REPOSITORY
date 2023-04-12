@@ -1,0 +1,4 @@
+This file contains important directory paths to be used during debug processess
+
+~/.bashrc 			contains the terminal startup settings
+/opt/ros/humble/share		contains all of the commands available to the ros2 package

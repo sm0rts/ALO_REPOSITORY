@@ -1,4 +1,16 @@
-https://roboticsbackend.com/how-to-learn-ros2/ 				 -- ROS2 Guidelines
-https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html  -- installation files for ROS
-https://www.youtube.com/watch?v=c5DRTN2b2kY&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy&index=2 -- utubes
-https://www.youtube.com/watch?v=VSrGzx4S5kI - ros git tutorial
+-- ROS2 Guidelines
+https://roboticsbackend.com/how-to-learn-ros2/
+
+-- installation files for ROS				
+https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html-- installation files for ROS
+
+-- utubes
+https://www.youtube.com/watch?v=c5DRTN2b2kY&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy&index=2 
+
+-- ros git tutorial
+https://www.youtube.com/watch?v=VSrGzx4S5kI
+
+--rplidar git repo 
+https://github.com/Slamtec/rplidar_ros/issues/67
+https://github.com/Slamtec/rplidar_ros/commit/b5d8f9fc7eb5eddde630f120d430e5820ce7ad19?short_path=b335630#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5
+

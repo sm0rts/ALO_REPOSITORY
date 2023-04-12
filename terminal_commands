@@ -36,17 +36,19 @@ sudo apt update && sudo aot upgrade
 nano <filename>.txt 				creates a text file and allows you to edit it 
 getit .bashrc 			opens the bash file so you can add sources to the opening of a terminal
 touch 						<filename> creates a file  
-chmod +x 					<filename> makes the file executable
+chmod +x <filename> 				makes the file executable
 ./<filename> 					runs the file
 colcon build 					builds the nodes in (only use in workspace folder) 
 source ~/.bashrc 				links the terminal to bashrc file
 ssh-keygen
 ssh pi@172.20.10.5 				connect to pi through phone hotspot
+cat /etc/os-release				tells info about OS
 ps -aux | grep "process"
 echo $PATH
 grep "keyword" file 
 grep -r "word" *
 cowsay penis | grep hello && echo "Found!" || echo "not Found"
+lsusb						shows connected usb devices
 
  Git commands .....................................
  git status 					shows status of changed files
@@ -62,6 +64,11 @@ cowsay penis | grep hello && echo "Found!" || echo "not Found"
  git clone <repository URL>			clones the repository
  git remote add origin <repo URL>		links computer repository to a remote one
  git push origin master
+ git branch 					tells you what branch you are on 
+ git ignore 					
+ 
+ 
+ 
  
  teminator commands ----------------------------------
   ctrl+shift+e					split vertically
@@ -84,3 +91,17 @@ cowsay penis | grep hello && echo "Found!" || echo "not Found"
  ros2 interface show <interface location>	reveals the data transmitterd over the topic
  ros2 service call <interface output> "{'a': x, 'b': y, 'c': z ...}"
  colcon build --symlink-install			installs the new node in the project
+ ros2 run tf2_tools view_frames			collects broadcasted frams into a tree
+ ros2 run tf2_ros tf2_echo <ref1> <ref2>	displayes the transfer of ref1 to ref2
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

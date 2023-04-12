@@ -48,4 +48,8 @@ Downloaded ros2 simulation packages for lidar but had no time to test them
 Connected raspberry pi to desktop 
 finished the ROS2 humble tutorial series, understood nodes, topics, publishers, subscribers and services as well as created example code in my_robot project that shows how to interconnect them. 
 Additional commands to discover topics and their contents have been appended to the terminal commands
+
+Rviz is a visualisation tool that displays the sensor data.
+Gazeebo is a physics simulation tool which can be useful when testing code without involving the hardware
+tf2 is a transfer function tool to describe transformations between reference frames
  

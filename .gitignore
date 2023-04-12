@@ -1,2 +1,4 @@
 my_robot_controller/my_robot_controller/__pycache__/
 .vscode/
+.vscode/c_cpp_properties.json
+.vscode/settings.json
