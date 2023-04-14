@@ -49,7 +49,64 @@ Connected raspberry pi to desktop
 finished the ROS2 humble tutorial series, understood nodes, topics, publishers, subscribers and services as well as created example code in my_robot project that shows how to interconnect them. 
 Additional commands to discover topics and their contents have been appended to the terminal commands
 
+12/04/2023
 Rviz is a visualisation tool that displays the sensor data.
 Gazeebo is a physics simulation tool which can be useful when testing code without involving the hardware
 tf2 is a transfer function tool to describe transformations between reference frames
- 
+
+13/04/2023
+To publish a static broadcaster to a tf2 include:
+from geometry_msgs.msg import TransformStamped
+import rclpy
+from rclpy.node import Node
+from tf2_ros.static_transform_broadcaster import StaticTransformBroadcaster
+
+create a class called Statick frame publisher - the treansforms in that class are defined during startup and never change afterwards
+def __init__(self, transformation):
+	super().__init__("name of the node")
+	self.tf_static_broadcaster = StaticTransformBroadcaster(self) - sends one static transform upon startup
+
+def make_transforms(self, transformation):  	-- this class function 
+	t = TransformStamped()			-- creating an object using Transforstamped from geometry messages library
+	
+	t.header.stamp = self.get_clock().now().to_msg() 	-- gives time stamps using real time clock
+	t.header.frame_id = 'parent frame name'				-- set the parent frame of the link
+	t.child_frame_id = transformation[1]			-- sets the name of the child frame we are creating here
+	
+	
+The part underneath performs 6D pose translation	
+	t.transform.translation.x = float(transformation[2])
+        t.transform.translation.y = float(transformation[3])
+        t.transform.translation.z = float(transformation[4])
+        quat = quaternion_from_euler(
+            float(transformation[5]), float(transformation[6]), float(transformation[7]))
+        t.transform.rotation.x = quat[0]
+        t.transform.rotation.y = quat[1]
+        t.transform.rotation.z = quat[2]
+        t.transform.rotation.w = quat[3]
+
+self.tf_static_broadcaster.sendTransform(t)			 -- broadcasts the transform 
+	
+	self.turtlename = self.declare_parameter("turtlename","turtle").get_parameter_value().string_value --allows userr to input a parameters 'turtlename' and 'turtle'
+
+subscribe the node to a topic
+	self .subscription = self.create_subscription(	
+	    Pose,
+	    f'/{self.turtlename}/pose',
+	    self.handle_turtle_pose,
+	    1)
+
+Create a 
+	t = TransformStamped()
+
+	t.header.stamp = self.get_clock().now().to_msg()
+	t.header.frame_id = 'world'
+	t.child_frame_id = self.turtlename
+	
+14/04/2023
+	
+	Use chat-gpt more, it gives good answers and links
+	QoS - is responsible for data transmission algorithms between devices
+	The QoS of publisher and subscriber need to be the same
+	Qos Of Rplidar is defined in this line 60 of rplidar_scan_publisher.cpp:
+

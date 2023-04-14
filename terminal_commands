@@ -47,7 +47,7 @@ ps -aux | grep "process"
 echo $PATH
 grep "keyword" file 
 grep -r "word" *
-cowsay penis | grep hello && echo "Found!" || echo "not Found"
+cowsay word | grep hello && echo "Found!" || echo "not Found"
 lsusb						shows connected usb devices
 
  Git commands .....................................
@@ -93,9 +93,10 @@ lsusb						shows connected usb devices
  colcon build --symlink-install			installs the new node in the project
  ros2 run tf2_tools view_frames			collects broadcasted frams into a tree
  ros2 run tf2_ros tf2_echo <ref1> <ref2>	displayes the transfer of ref1 to ref2
- 
- 
- 
+ rosdep install -i --from-path src --rosdistro humble -y	Downloads dependencies for files
+ ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll --frame-id frame_id --child-frame-id child_frame_id  publish a static coordinate transform
+ ros2 run tf2_ros static_transform_publisher --x x --y y --z z --qx qx --qy qy --qz qz --qw qw --frame-id frame_id --child-frame-id child_frame_id	publish a static coordinate transform
+ ros2 topic echo /tf_static			echoes static transfer functions
  
  
  
