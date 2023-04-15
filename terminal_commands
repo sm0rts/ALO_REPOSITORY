@@ -70,14 +70,9 @@ lsusb						shows connected usb devices
  
  
  
- teminator commands ----------------------------------
-  ctrl+shift+e					split vertically
-  ctrl+shift+o					split horizontally
-  ctrl+shift+w					close terminal
-  ctrl+shift+x					full screen mode enter/exit
-  alt + l 					allows to select premade layouts
+ 
   
- ROS commands
+ ROS commands ------------------------------------------
  ris 2 pkg create <pkg name> --build-type ament_python      creates a python package
  rqt_graph					shows the graph of nodes					
  ros2 run <filename> test_node 			launches the execution of the test node
@@ -93,12 +88,28 @@ lsusb						shows connected usb devices
  colcon build --symlink-install			installs the new node in the project
  ros2 run tf2_tools view_frames			collects broadcasted frams into a tree
  ros2 run tf2_ros tf2_echo <ref1> <ref2>	displayes the transfer of ref1 to ref2
+ 
  rosdep install -i --from-path src --rosdistro humble -y	Downloads dependencies for files
- ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll --frame-id frame_id --child-frame-id child_frame_id  publish a static coordinate transform
+ ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll 
+ --frame-id frame_id --child-frame-id child_frame_id  publish a static coordinate transform
  ros2 run tf2_ros static_transform_publisher --x x --y y --z z --qx qx --qy qy --qz qz --qw qw --frame-id frame_id --child-frame-id child_frame_id	publish a static coordinate transform
+  ros2 run tf2_ros static_transform_publisher 1 2 3 0.5 0.1 -1.0 foo bar	-- example
+ 
  ros2 topic echo /tf_static			echoes static transfer functions
+
  
  
+ teminator commands ----------------------------------
+  ctrl+shift+e					split vertically
+  ctrl+shift+o					split horizontally
+  ctrl+shift+w					close terminal
+  ctrl+shift+x					full screen mode enter/exit
+  alt + l 					allows to select premade layouts
+ 
+ vim commands ----------------------------------------
+ i 						insert mode allows editing text
+ :q!	or	ZQ				to exit vim without saving					
+ :x!	or	:wq				to save
  
  
  

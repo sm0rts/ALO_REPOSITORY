@@ -3,6 +3,10 @@ https://roboticsbackend.com/how-to-learn-ros2/
 
 -- installation files for ROS				
 https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html-- installation files for ROS
+-- installation for raspbery pi
+https://docs.ros.org/en/humble/Installation/Alternatives/Ubuntu-Development-Setup.html
+--below command ensure that colcon build works
+pip install setuptools==58.2.0
 
 -- utubes
 https://www.youtube.com/watch?v=c5DRTN2b2kY&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy&index=2 
@@ -16,3 +20,5 @@ https://github.com/Slamtec/rplidar_ros/commit/b5d8f9fc7eb5eddde630f120d430e5820c
 
 ROS tutorials
 https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Tf2-Main.html
+
+

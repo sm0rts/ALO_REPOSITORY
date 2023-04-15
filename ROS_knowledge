@@ -109,4 +109,9 @@ Create a
 	QoS - is responsible for data transmission algorithms between devices
 	The QoS of publisher and subscriber need to be the same
 	Qos Of Rplidar is defined in this line 60 of rplidar_scan_publisher.cpp:
+	
+	When downloading ROS on Pi remember to do check the dependencies in the root folder using
+	rosdep install -i --from-path src --rosdistro humble -y
+	
+	
 
