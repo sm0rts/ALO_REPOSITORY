@@ -113,5 +113,31 @@ Create a
 	When downloading ROS on Pi remember to do check the dependencies in the root folder using
 	rosdep install -i --from-path src --rosdistro humble -y
 	
+20/04/2023
 	
-
+	ROS2 Control
+	Connected the STM32 board to computer
+	Programmed it using arduino IDE to turn motor left and right open loop
+	Wired the power system with L298N
+	connected and enabled the encoder to be interrupt driven
+	enabled timer PWM module for the motor control
+	The current algorithm uses encoder as a speed setter
+	The main loop send serial signals to desktop through USB to UART converter SH-U09C
+	This is likely going to be the prefered method to send data in the future to rsppi
+		
+	The interfaces can be devided into:
+		Command interfaces - tell something to do something
+		State interfaces - send information about their state
+	A resource manager collects all of the interfaces and links them together
+	Resource manager is what interfaces with controller and GUI
+	Hardware interfacing is normaly unique but there are many baseilne controllers
+	ROS2 controllers package provides controls for most needs
+	State interfaces are read only and can be accessed by multiple controllers
+	
+	Controller manager needs information about hardware like ports, com type, baudrate
+	Info is provided through URDF(Interfaces) YAML(Controllers)
+	 
+	
+	
+	
+	

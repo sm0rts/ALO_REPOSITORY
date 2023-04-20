@@ -1,3 +1,5 @@
 This list contains information about downloaded to raspberry pi content
 UBUNTU 22.04.2 Jammy Server
 ROS2
+sudo apt install gnome terminal
+pip install setuptools==58.2.0

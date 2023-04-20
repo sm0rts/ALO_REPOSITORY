@@ -1,0 +1,19 @@
+19/04/2023	
+
+	detouring in a world of motors
+	Figure out: How many pwm pins does the stm32f board have - all of them, 4 timers
+	Instal low level programming software to programm the stm - arduino IDE used
+	write or find someone elses code - Done
+	Find a way to communicate between raspberry and the stm - probably serial
+
+20/04/2023
+
+	Create a ros node that talks to STM32 using serial port
+	understand what xacro files are 
+	Watch a bunch of tutorials regarding ros file structure
+	Try to get rplidar to work on rasbpi 
+	Start making the interfacing node(after researching what it is)
+	
+
+
+
