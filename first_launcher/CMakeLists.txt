@@ -12,5 +12,9 @@ install(DIRECTORY
   launch # name of the directory in which demo.launch lies
   DESTINATION share/${PROJECT_NAME}
 )
+install(DIRECTORY
+  config # name of the directory in which demo.launch lies
+  DESTINATION share/${PROJECT_NAME}
+)
 
 ament_package()

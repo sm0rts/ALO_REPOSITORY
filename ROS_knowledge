@@ -114,17 +114,18 @@ Create a
 	rosdep install -i --from-path src --rosdistro humble -y
 	
 20/04/2023
-	
-	ROS2 Control
+		
 	Connected the STM32 board to computer
-	Programmed it using arduino IDE to turn motor left and right open loop
+	https://www.youtube.com/watch?v=wY8MrBGVxYA has stm tutorial
+	Programmed it using arduino IDE to turn motor  left and right open loop
 	Wired the power system with L298N
 	connected and enabled the encoder to be interrupt driven
 	enabled timer PWM module for the motor control
 	The current algorithm uses encoder as a speed setter
 	The main loop send serial signals to desktop through USB to UART converter SH-U09C
 	This is likely going to be the prefered method to send data in the future to rsppi
-		
+	
+	ROS2 Control	
 	The interfaces can be devided into:
 		Command interfaces - tell something to do something
 		State interfaces - send information about their state
@@ -137,7 +138,16 @@ Create a
 	Controller manager needs information about hardware like ports, com type, baudrate
 	Info is provided through URDF(Interfaces) YAML(Controllers)
 	 
+21/04/2023
 	
+	YAML Files
+	make it in the package like "my_robot_controller"
+	The directory by default is called called "config"
+	https://www.youtube.com/watch?v=wY8MrBGVxYA has a good tutorial on the topic
+	
+	Serial com typically consists of a transmit and recieve wires Tx and Rx 
+	One bit is sent at a time in packages of 8 bits (0-255) typically
+	 
 	
 	
 	

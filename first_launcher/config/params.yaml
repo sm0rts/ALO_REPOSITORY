@@ -1,0 +1,4 @@
+first_node:
+  ros__parameters:
+    bool_value: True
+    int_number: 5
