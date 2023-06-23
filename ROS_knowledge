@@ -148,6 +148,19 @@ Create a
 	Serial com typically consists of a transmit and recieve wires Tx and Rx 
 	One bit is sent at a time in packages of 8 bits (0-255) typically
 	 
+21/06/2023 - ROS vs Python
+
+	class MyNode(Node): defines a class which inherts from node class in rclpy
+		def __init__(self):	runs initiation of the node
+			super(). __init_("<node name>") - gives the node a name
+			self.get_logger().info("<message>") - writes text into the terminal
+			
+	def main(args=None)
+		rclpy.init(args=args) initialises ros 2 coms
+		rclpy.spin(node) - makes node callbacks reocur until node is terminated.
+		rclpy.shutdown() shuts down ros coms
+	
+	if __name__ == main allows calling the code from outside (eg. terminal)
 	
 	
 	

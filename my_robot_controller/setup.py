@@ -24,7 +24,9 @@ setup(
     "draw_circle = my_robot_controller.draw_circle:main",
     "pose_subscriber = my_robot_controller.pose_subscriber:main",
     "turtle_traveler = my_robot_controller.turtle_traveler:main",
-    "scan_subscriber = my_robot_controller.scan_subscriber:main"
+    "scan_subscriber = my_robot_controller.scan_subscriber:main",
+    "serial_com = my_robot_controller.serial_com:main",
+    "serial_subscriber = my_robot_controller.serial_subscriber:main"
         ],
     },
 )
