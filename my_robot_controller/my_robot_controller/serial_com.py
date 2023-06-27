@@ -20,7 +20,7 @@ class SerialNode(Node):
         baudrate = baudrate
         super().__init__('serial_node')
         self.stm_data = serial.Serial(port,baudrate)
-        self.create_timer(0.10, self.request_position)
+        self.create_timer(0.2, self.request_position)
 #################
         self.cmd_vel_subscriber = self.create_subscription(
             Twist, "/turtle1/cmd_vel",self.read_command, 10)
@@ -58,7 +58,7 @@ def find_serial_port_with_string(string):
 def main(args=None):
     print(find_serial_port_with_string('CP210'))
     rclpy.init(args=args)
-    node = SerialNode(find_serial_port_with_string('CP210'),9600)
+    node = SerialNode(find_serial_port_with_string('CP210'),115200)
     rclpy.spin(node)
     rclpy.shutdown()
 

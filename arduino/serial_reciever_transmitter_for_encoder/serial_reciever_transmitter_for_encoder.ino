@@ -7,7 +7,7 @@ int encoder_val = 0;
 
 void setup() {
   //serial com setup
-  Serial.begin(9600);
+  Serial.begin(115200);
   as5600.begin(4); 
   pinMode(PC13, OUTPUT);
   as5600.setDirection(AS5600_CLOCK_WISE);
