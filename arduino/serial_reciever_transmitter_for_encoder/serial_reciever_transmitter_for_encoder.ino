@@ -1,9 +1,14 @@
-String myCmd;
-String dump;
 #include "AS5600.h"
 #include "Wire.h"
+
+String myCmd;
+String oldResult ="";
+String Result="";
+
 AS5600 as5600; 
-int encoder_val = 0;
+int Rotation = 0;
+int int_Result = 0;
+int int_oldResult = 0;
 
 void setup() {
   //serial com setup
@@ -11,35 +16,32 @@ void setup() {
   as5600.begin(4); 
   pinMode(PC13, OUTPUT);
   as5600.setDirection(AS5600_CLOCK_WISE);
-  //interrupt setup
-  Timer2.setMode(TIMER_CH1, TIMER_OUTPUTCOMPARE);
-  Timer2.setPeriod(50000000); // in microseconds
-  Timer2.setCompare(TIMER_CH1, 1);      // overflow might be small
-  Timer2.attachInterrupt(TIMER_CH1, interrupt_routine);
 }
 
-void interrupt_routine(void) {//periodically reads the value stored on the encoder
-      //Timer2.setPeriod(500);
-      //Timer2.setPeriod(1000);
-      //digitalWrite(PC13, !digitalRead(PC13));
-      //encoder_val = as5600.readAngle();
-    }
     
+void get_encoder_poition(void){
+  oldResult = Result;
+  Result = as5600.readAngle();
+  int_Result = Result.toInt();
+  int_oldResult = oldResult.toInt();
+
+  if (3572<int_oldResult  &&  int_Result<500){
+   Rotation = Rotation +1;
+  }
+  if (int_oldResult<500   && 3572<int_Result){
+    Rotation = Rotation -1;
+  }
+}
+
 
 void loop() {// constantly checks if there is any serial com
   while(Serial.available()==0){
       //loop while no data
   }
   myCmd = Serial.readStringUntil('\r');
-  if (myCmd == "REQ"){
-    Serial.print("Current position:\t ");
-  }
   if (myCmd == "ON"){
     digitalWrite(PC13, LOW);
     Serial.print("LED is ON\t encoder:");
-    //encoder_val = as5600.readAngle();
-    
-    //dump = Serial.readStringUntil('\r');
   }
   if (myCmd == "OFF"){
     digitalWrite(PC13, HIGH);
@@ -48,8 +50,15 @@ void loop() {// constantly checks if there is any serial com
   else if(myCmd != "ON" && myCmd !="OFF"&& myCmd !="REQ"){
     Serial.print("unknown command\t "+ myCmd);
   }
-  Serial.println(as5600.readAngle());
+  get_encoder_poition();
+  Serial.print("Rotaions:\t");
+  Serial.print((int)Rotation);
+  Serial.print("\tOld Result:\t");
+  Serial.print((int)int_oldResult);
+  Serial.print("\tResult:\t");
+  Serial.println((int)int_Result);
   while(Serial.available()==1){
     char t = Serial.read();
   }
+  
 }
