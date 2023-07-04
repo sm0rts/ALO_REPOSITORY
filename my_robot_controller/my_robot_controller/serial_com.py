@@ -31,6 +31,8 @@ class SerialNode(Node):
             self.send_cmd("OFF")
         if msg.linear.x == 2:
             self.send_cmd("ON")
+        if msg.angular.z == 2:
+             self.send_cmd("STOP")
 ##################
 
     def request_position(self):
