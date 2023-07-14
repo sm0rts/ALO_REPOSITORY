@@ -14,6 +14,25 @@
 	Try to get rplidar to work on rasbpi 
 	Start making the interfacing node(after researching what it is)
 	
-
+05/07/2023
+	
+	Have a talk with technitians regarding turning the axis and cutting plastic
+	Create circuit diagram for the microcontroller unit featuring every wire in KICAD
+	Finilise where electronics will be placed
+	Finilise wire lenghts and connector types
+	Make wires for 4 motors
+	Manufacture and assemble the wheel fixtures
+	
+	Get an I2C multiplexer OR Find a way to change address of AS5600
+	Connect 4 motor layouts to the breakout board
+	Write basic code to control 4 motors to run existing PWM routine
+	Research mecanum wheel control methodology
+	create a function that generates input to move forward/backward
+	create a function that generates input to move right/left
+	create a function that generates input to rotate clockwise/counterclockwise
+	
+	Write up mechanical design considerations document
+	Write up STM32 Modules document
+	transfer planning documentation into main report body
 
 
