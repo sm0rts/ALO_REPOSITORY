@@ -35,7 +35,7 @@ void setup()
   Wire.setClock(400000);
   Wire.begin();
   pinMode(PB10, INPUT_PULLUP);
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial);             // Leonardo: wait for serial monitor
   Serial.println("\nI2C Scanner");
 }
@@ -80,5 +80,5 @@ void loop()
   else
     Serial.println("done\n");
  
-  delay(5000);           // wait 5 seconds for next scan
+  delay(500);           // wait 5 seconds for next scan
 }

@@ -84,7 +84,7 @@ void handler1(void){
 
 void get_encoder_poition(void){
   oldResult = Result;
-  Result = c;
+  Result = as5600.readAngle();
   int_Result = Result.toInt();
   int_oldResult = oldResult.toInt();
 

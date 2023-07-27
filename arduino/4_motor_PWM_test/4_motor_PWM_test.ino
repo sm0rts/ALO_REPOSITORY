@@ -50,11 +50,11 @@ void setup() {
   pinMode(FR2, PWM);
   pinMode(BR1, PWM);
   pinMode(BR2, PWM);
-  pwmWrite(FL1, 15000);
+  pwmWrite(FL1, 30000);
   pwmWrite(FL2, 0);
   pwmWrite(BL1, 30000);
   pwmWrite(BL2, 0);
-  pwmWrite(FR1, 45000);
+  pwmWrite(FR1, 50000);
   pwmWrite(FR2, 0);
   pwmWrite(BR1, 60000);
   pwmWrite(BR2, 0);
@@ -99,6 +99,7 @@ void get_encoder_poition(void){
 }
 
 void loop() {// constantly checks if there is any serial com
+while(Serial.available()==0){
   get_encoder_poition();
   Serial.print("Rotaions:\t");
   Serial.print((int)kk);
@@ -110,5 +111,5 @@ void loop() {// constantly checks if there is any serial com
     char t = Serial.read();
   }
   delay(500);
-  
+}
 }
