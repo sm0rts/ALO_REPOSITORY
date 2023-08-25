@@ -1,6 +1,7 @@
 #include "AS5600.h"
 #include "Wire.h"
 #include <RunningAverage.h>
+#include <ALO.h>
 AS5600 as5600; 
 
 //Serial 
@@ -35,7 +36,7 @@ float duty_cycle_FL = 0;
 float duty_cycle_BL = 0;
 float duty_cycle_FR = 0;
 float duty_cycle_BR = 0;
-volatile bool toggle = 0;
+volatile bool toggle[4] = {0};
 volatile int kk = 0;
 
 int FL1 = PA0;
@@ -47,6 +48,8 @@ int FR2 = PA7;
 int BR1 = PB0;
 int BR2 = PB1;
 
+//test 
+int a = 0;
 
 void setup() {
   //serial
@@ -71,16 +74,16 @@ void setup() {
   pinMode(BR1, PWM);
   pinMode(BR2, PWM);
   
-  pwmWrite(FL1, 50000);
+  pwmWrite(FL1, 20000);
   pwmWrite(FL2, 0);
-  
-  pwmWrite(BL1, 50000);
+  //
+  pwmWrite(BL1, 20000);
   pwmWrite(BL2, 0);
-  
-  pwmWrite(FR1, 50000);
+  //
+  pwmWrite(FR1, 20000);
   pwmWrite(FR2, 0);
   
-  pwmWrite(BR1, 50000);
+  pwmWrite(BR1, 20000);
   pwmWrite(BR2, 0);
   
   //Timer interrupts for collecting encoder data 
@@ -96,16 +99,16 @@ void setup() {
   speedBuffer[2].clear();
   speedBuffer[3].clear();
 }
-void get_control_inputs_interrupt(){
 
+void get_control_inputs_interrupt(){
 }
 
 void get_encoder_positions_interrupt(void){
- serial_write_request =1;
+ serial_write_request = 1;
  kk++;
 }
-
-void generate_input(char motor){
+/*
+int generate_input(char motor,int yd,int y){
   //y_x(k)= a1y(k-1)+a2y(k-2)+b1u(k)+b2u(k-1)+b3u(k-3)
   //y_y(k)= a1y(k-1)+a2y(k-2)+b1u(k)+b2u(k-1)+b3u(k-3)
   //y_R(k)= a1y(k-1)+a2y(k-2)+b1u(k)+b2u(k-1)+b3u(k-3)
@@ -113,9 +116,10 @@ void generate_input(char motor){
   //multiplies them by some gains a0,a1,a2,b0,b1,b2 to get control input
   //maps input to PWM (0:65535)
 
-  error[motor] = yd[motor]-Rotation[motor];
-  u[motor] = error[motor];
-  /*
+  int error = yd-y;
+  int u = error;
+  return u;
+  
   //limiting duty cycle 
   if(u[motor]<min_speed && Rotation[motor]!=yd[motor] ){
     u[motor]=min_speed;
@@ -124,15 +128,9 @@ void generate_input(char motor){
     u[motor]= max_speed;
   }
   //Setting PWM timings
-  */
+  
 }
-
-void TCA9548A(uint8_t bus){
-  Wire.beginTransmission(0x70);  // TCA9548A address is 0x70
-  Wire.write(1 << bus );          // send byte to select bus
-  Wire.endTransmission();
-  //Serial.print(bus);
-}
+*/
 
 void get_encoder_poition(int encoder_n){
    y_2[encoder_n] =  y_1[encoder_n];
@@ -158,27 +156,28 @@ int get_speed(int encoder_n){
 }
 
 void loop() {// constantly checks if there is any serial com
+
+
   while(Serial.available()==0){
-    
-
-
     if(serial_write_request == 1){
       for (int i = 4; i <= 7; i++){
         TCA9548A(i);
         get_encoder_poition(i-4);
+        a = a+1;
       }
+      
       if (kk>=50){
         //Serial.print(kk);
         digitalWrite(PC13, !digitalRead(PC13));
         kk = 0;
+        
         for (int i = 4; i <= 7; i++){
-          generate_input(i-4);
+          generate_input(i-4, yd[i-4] , y[i-4]);
         }
       }
       serial_write_request=0;
     }
   }
-
 
 
 
@@ -201,21 +200,54 @@ void loop() {// constantly checks if there is any serial com
       }
       Serial.println("");
     }
-    if (myCmd == "ON"){
-      Serial.println("Forward command recieved");
+    if (myCmd == "LEFT"){
+      Serial.println("FL command recieved");
       yd[0] = yd[0]+100;
+      toggle[0] = !toggle[0];
+      if(toggle[0] == 1){
+        pwmWrite(FL1, 40000);
+      }
+      if(toggle[0] == 0){
+        pwmWrite(FL1, 12000);
+      }
     }
-    if (myCmd == "OFF"){
-      Serial.println("Backward command recieved");
+    if (myCmd == "UP"){
+      Serial.println("FR command recieved");
       yd[1] = yd[1]+100;
+      toggle[1] = !toggle[1];
+      if(toggle[1] == 1){
+        pwmWrite(FR1, 40000);
+      }
+      if(toggle[1] == 0){
+        pwmWrite(FR1, 12000);
+      }
     }
-    if (myCmd == "STOP"){
-      Serial.println("STOP command recieved");
+    if (myCmd == "DOWN"){
+      Serial.println("BL command recieved");
       yd[2] = yd[2]+100;
+      toggle[2] = !toggle[2];
+      if(toggle[2] == 1){
+        pwmWrite(BL1, 40000);
+      }
+      if(toggle[2] == 0){
+        pwmWrite(BL1, 12000);
+      }
+    }
+    if (myCmd == "RIGHT"){
+      Serial.println("BR command recieved");
+      yd[3] = yd[3]+100;
+      toggle[3] = !toggle[3];
+      if(toggle[3] == 1){
+        pwmWrite(BR1, 40000);
+      }
+      if(toggle[3] == 0){
+        pwmWrite(BR1, 12000);
+      }
     }
     while(Serial.available()==1){
     char t = Serial.read();
   }
+  
 
 }
     

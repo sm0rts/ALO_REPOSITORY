@@ -4,7 +4,7 @@ String dump;
 
 void setup() {
   //serial com setup
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(PC13, OUTPUT);
   //interrupt setup
@@ -12,14 +12,25 @@ void setup() {
 
 void loop() {// constantly checks if there is any serial com
   while(Serial.available()==0){
-      //loop while no data
   }
   myCmd = Serial.readStringUntil('\r');
-  if (myCmd == "ON"){
+  if (myCmd == "UP"){
+    Serial.write("UP");
     digitalWrite(PC13, LOW);
     Serial.println("LED is ON");
   }
-  if (myCmd == "OFF"){
+  if (myCmd == "DOWN"){
+    Serial.write("DOWN");
+    digitalWrite(PC13, HIGH);
+    Serial.println("LED is OFF");
+  }
+  if (myCmd == "LEFT"){
+    Serial.write("DOWN");
+    digitalWrite(PC13, HIGH);
+    Serial.println("LED is OFF");
+  }
+  if (myCmd == "RIGHT"){
+    Serial.write("DOWN");
     digitalWrite(PC13, HIGH);
     Serial.println("LED is OFF");
   }

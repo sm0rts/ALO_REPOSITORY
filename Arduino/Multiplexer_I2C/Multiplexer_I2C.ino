@@ -1,5 +1,6 @@
 #include "AS5600.h"
 #include "Wire.h"
+#include <ALO.h>
 AS5600 as5600; 
 int Rotation = 0;
 String oldResult ="";
@@ -16,15 +17,6 @@ void setup() {
   as5600.begin(4); 
   as5600.setDirection(AS5600_CLOCK_WISE);
 }
-
-
-void TCA9548A(uint8_t bus){
-  Wire.beginTransmission(0x70);  // TCA9548A address is 0x70
-  Wire.write(1 << bus);          // send byte to select bus
-  Wire.endTransmission();
-  //Serial.print(bus);
-}
-
 
 void loop() {
   // put your main code here, to run repeatedly:

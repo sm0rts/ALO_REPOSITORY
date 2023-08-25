@@ -28,11 +28,13 @@ class SerialNode(Node):
     def read_command(self, msg: Twist):
         message = str("linear velocity= ")+str(msg.linear.x)+str("\tangular velocity = ")+str(msg.angular.z)
         if msg.linear.x == -2:
-            self.send_cmd("OFF")
+            self.send_cmd("DOWN")
         if msg.linear.x == 2:
-            self.send_cmd("ON")
+            self.send_cmd("UP")
         if msg.angular.z == 2:
-             self.send_cmd("STOP")
+             self.send_cmd("LEFT")
+        if msg.angular.z == -2:
+             self.send_cmd("RIGHT")
 ##################
 
     def request_position(self):
