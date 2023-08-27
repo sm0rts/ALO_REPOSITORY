@@ -11,13 +11,16 @@ static int Rotation[4] = {0,0,0,0};
 String str_y[4]={""};
 static int  y[4] = {0,0,0,0};//current output 
 static int  y_1[4] = {0,0,0,0};//current output  
-static int  y_2[4] = {0,0,0,0};//current output   
+static int  y_2[4] = {0,0,0,0};//current output
+static int  velocity_control_output[4] = {0,0,0,0};
+static bool dir_motor[4]= {0,0,0,0};
 static int observed_angular_velocity[4] = {0,0,0,0};
 static int desired_angular_velocity[4] = {0,0,0,0};
 static int error[4]= {0,0,0,0};
 const int max_angular_velocity = 200;
 const int min_angular_velocity = 50;
 const int Kp = 1;
+const int u_max = 400;
 volatile bool encoder_read_request = 0;
 const char Buffer_Size= 400;
 RunningAverage speedBuffer[4] = {
@@ -32,9 +35,12 @@ const int overflow_value_for_full_period = sys_clock/desired_encoder_check_Hz;
 
 volatile bool toggle[4] = {0};
 static int PWM_input[4][2] = {0};
-volatile int control_cooldown_counter = 0;
+volatile int control_counter = 0;
 int MOTOR[4][2] = {{PA0,PA1},{PA2,PA3},{PA6,PA7},{PB0,PB1}}; 
 int chosen_motor =10;
+const int max_PWM = 62000;
+const int min_PWM = 10000;
+
 
 void setup() {
   //serial
@@ -49,7 +55,6 @@ void setup() {
   as5600.setDirection(AS5600_CLOCK_WISE);
 
   //PWM
-  
   pinMode(MOTOR[0][0], PWM);
   pinMode(MOTOR[0][1], PWM);
   pinMode(MOTOR[1][0], PWM);
@@ -58,7 +63,7 @@ void setup() {
   pinMode(MOTOR[2][1], PWM);
   pinMode(MOTOR[3][0], PWM);
   pinMode(MOTOR[3][1], PWM);
-  
+  //default all motors to off
   pwmWrite(MOTOR[0][0], 0);
   pwmWrite(MOTOR[0][1], 0);
   pwmWrite(MOTOR[1][0], 0);
@@ -81,33 +86,20 @@ void setup() {
   speedBuffer[3].clear();
 }
 
-void get_control_inputs_interrupt(){
-}
-
 void get_encoder_positions_interrupt(void){
  encoder_read_request = 1;
- control_cooldown_counter++;
+ control_counter++;
 }
+
 
 
 int velocity_control(int motor){
-  observed_angular_velocity[motor] = get_speed(motor);
+  observed_angular_velocity[motor] = speedBuffer[motor].getAverage();
   int error = desired_angular_velocity[motor]-observed_angular_velocity[motor];
-  int u = abs(Kp*error);
-  if (u>390){u = 390;}
-  int PWM = map(u,0,400,0,65535);
-  if (error>0 ){PWM_input[motor][0] = PWM; PWM_input[motor][1] = 0;}
-  if (error<=0){PWM_input[motor][1] = PWM; PWM_input[motor][0] = 0;}
-}
-  /*
-  if(u<min_angular_velocity && desired_angular_velocity[motor]!=0 ){
-    u=min_angular_velocity;
-  }
-  if(max_angular_velocity<u){
-    u= max_angular_velocity;
-  }
-  */
-  
+  //error integrator;
+  //error differentiator;
+  velocity_control_output[motor] = abs(Kp*error);
+} 
 
 void change_motor_variables(int motor){
   desired_angular_velocity[motor] = desired_angular_velocity[motor]+5;
@@ -123,7 +115,7 @@ void process_motor_command(){
       Serial.print(" vd=");
       Serial.print((int)desired_angular_velocity[i-4]);
       Serial.print(" v=");
-      Serial.print((int)get_speed(i-4));
+      Serial.print((int)observed_angular_velocity[i-4]);
       Serial.print(" u1=");
       Serial.print((int)PWM_input[i-4][0]);
       Serial.print(" u2=");
@@ -147,9 +139,22 @@ void process_motor_command(){
 }
 
 void send_motor_cmd(){
-  for (int i = 0; i < 3; i++){
-    pwmWrite(MOTOR[i][1],PWM_input[i][0]);
-    pwmWrite(MOTOR[i][0],PWM_input[i][1]);
+  for (int i = 0; i < 4; i++){
+    int PWM = map(abs(velocity_control_output[i]),0,u_max,0,65535);//get input amplitude
+    if (PWM<min_PWM && velocity_control_output[i]!=0){  PWM = min_PWM; };
+    if (PWM>max_PWM){  PWM = max_PWM; };
+    //Make sure only 1 phase active at a time
+    if (velocity_control_output[i]>0){PWM_input[i][0] = PWM; PWM_input[i][1] = 0;}  
+    if (velocity_control_output[i]<0){PWM_input[i][0] = 0; PWM_input[i][1] = PWM;}
+    for (int k = 0; k<2; k++)
+    //pwmWrite(MOTOR[i][1],PWM_input[i][0]);
+    //pwmWrite(MOTOR[i][0],PWM_input[i][1]);
+    Serial.print("Motor");
+    Serial.print(i);
+    Serial.print(" Phase1:");
+    Serial.print(PWM_input[i][0]);
+    Serial.print(" phase2:");
+    Serial.println(PWM_input[i][1]);
     }
 }
 
@@ -177,51 +182,18 @@ void get_encoder_data(){
 
 
 void loop() {// constantly checks if there is any serial com
-  while(Serial.available()==0){
-    if(encoder_read_request == 1){
-        get_encoder_data();
-      if (control_cooldown_counter>=50){
-        control_cooldown_counter = 0;
-        for (int i = 0; i < 3; i++){
-          //poistion control loop;
-          velocity_control(i);
-          pwmWrite(MOTOR[i][1],PWM_input[i][0]);
-          pwmWrite(MOTOR[i][0],PWM_input[i][1]);
-          //Serial.print(velocity_control(i-4));
+  if(encoder_read_request == 1){
+    get_encoder_data();
+    //calculate_ALOs_position;
+    if (control_counter>=50){
+      for (int i = 0; i < 3; i++){
+        //poistion control loop;
+        velocity_control(i);
+        send_motor_cmd();
         }
+      control_counter = 0;
       }
-      encoder_read_request=0;
+    encoder_read_request=0;
     }
-  }
-  process_motor_command();
+  process_motor_command();  
 }
-
-
-
-
-
-
-
-
- void get_encoder_poition(int encoder_n){
-   y_2[encoder_n] =  y_1[encoder_n];
-   y_1[encoder_n] =  y[encoder_n];
-  str_y[encoder_n]       = as5600.readAngle();
-   y[encoder_n]   = str_y[encoder_n].toInt();
-  if (3572< y_1[encoder_n]  &&   y[encoder_n]<500){
-    Rotation[encoder_n] ++;
-    observed_angular_velocity[encoder_n] = 4096 -  y_1[encoder_n] +  y[encoder_n];
-  }
-  else if ( y_1[encoder_n]<500   && 3572< y[encoder_n]){
-    Rotation[encoder_n] --;
-    observed_angular_velocity[encoder_n] =   y[encoder_n]- y_1[encoder_n]-4096;
-  }
-  else {
-    observed_angular_velocity[encoder_n] =  y[encoder_n] -  y_1[encoder_n];
-  }
-  speedBuffer[encoder_n].addValue(observed_angular_velocity[encoder_n]);
-}
-
-int get_speed(int encoder_n){ 
-  return(speedBuffer[encoder_n].getAverage());
-} 
