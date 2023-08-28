@@ -1,12 +1,12 @@
-static float Q_observed[4] = {500,-600,-600,600};
-static int Vb_observed[3] = {2,3,5};
-static int Vs_observed[3] = {2,3,5};
-static int P_observed[3] = {0,0,0};
+static float Q_observed[4] = {-600,600,-600,600};
+static float Vb_observed[3] = {2,3,5};
+static float Vs_observed[3] = {2,3,5};
+static float P_observed[3] = {0,0,0};
 const float dt = 0.005;
 const float l = 0.589;
 const float w = 0.620;
 const float KH0 = 1/(l+w);
-float phi = 1000;
+float phi = 100;
 float phi_rad = 0;
 
 const float H_0_inverse[3][4] = {
@@ -55,7 +55,7 @@ void get_P_observed(){
   }
   
 }
-void setup() {Serial.begin(115200);}
+void setup() {Serial.begin(115200);P_observed[0] = phi;}
 
 void loop() {
   for (int k =0; k < 200;k++){

@@ -25,6 +25,13 @@ RunningAverage Q_buffer[4] = {
   RunningAverage(Q_buffer_size),
   RunningAverage(Q_buffer_size)};
 
+void initialise_velocity_control(){
+  Q_buffer[0].clear();
+  Q_buffer[1].clear();
+  Q_buffer[2].clear();
+  Q_buffer[3].clear();
+}
+
 void get_Q_desired(){
   for (int i = 0; i < 4; i++){
     Q_desired[i] = 0;
